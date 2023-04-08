@@ -6,7 +6,6 @@ using NudeProject.Repositories;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
 var connectionString = builder.Configuration.GetConnectionString("LocalDB");
 builder.Services.AddDbContext<NudeDBContext>(x => x.UseSqlServer(connectionString));
 builder.Services.AddScoped<IProductRepository, ProductRepository>();

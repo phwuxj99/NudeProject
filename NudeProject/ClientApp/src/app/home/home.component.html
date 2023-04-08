@@ -1,40 +1,48 @@
 
-<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="forecasts">
+<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="products">
   <thead>
     <tr>
+      <th></th>
       <th></th>
       <th></th>
       <th></th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let forecast of forecasts | groupBy: 'categoryName' | pairs ">
-      <td>{{ forecast[0] }}</td>
-      <td>{{ locationsSum(forecast[1]) }}</td>
-      <td colspan="2">
-        <div class="row" *ngFor="let t of forecast[1]; index as i">
-          <div>Task: {{t.itemName}}</div>
-          <div>Task: {{t.price}}</div>
-          <div>
-            <button type="button" (click)="deleteData(t.id)">Delete</button>
-          </div>
-        </div>
+    <tr *ngFor="let product of products | groupBy: 'categoryName' | pairs ">
+      <td colspan="4">
+        <table width="100%">
+          <tr>
+            <td>{{ product[0] }}</td>
+            <td>{{ locationsSum(product[1]) }}</td><td></td>
+          </tr>
+          <tr *ngFor="let t of product[1]">
+            <td width="30"></td>
+            <td width="150">{{t.itemName}}</td>
+            <td width="150">
+              {{t.price}} &nbsp; &nbsp; &nbsp;
+              <img src="/assets/images/delete.png" width="20" height="25" alt="Delete" (click)="deleteData(t.id)" />
+            </td>
+          </tr>
+
+        </table>
       </td>
     </tr>
     <tr>
-      <td></td>
       <td><b>Total:</b> </td>
-      <td colspan="2"><b>{{total}}</b> </td>
+      <td><b>{{total}}</b> </td>
+      <td></td>
+      <td></td>
     </tr>
     <tr>
       <td>
-        <input type="text" placeholder="Item Name" name="itemname" id="itemname" required="required" [(ngModel)]="itemname" >
+        <input type="text" placeholder="Item Name" name="itemname" id="itemname" required="required" [(ngModel)]="itemname">
       </td>
       <td>
         <input type="number" name="price" id="price" required="required" value="3000" step="1" [(ngModel)]="price">
       </td>
-      <td >
-        <select [(ngModel)]="selectedValue" >
+      <td>
+        <select [(ngModel)]="selectedValue">
           <option *ngFor="let category of categories" [value]="category.name">{{category.name}}</option>
         </select>
       </td>

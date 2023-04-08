@@ -2,7 +2,8 @@ import { Component, Inject, Pipe, PipeTransform } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { GroupByPipe } from 'ngx-pipes';
 import { environment } from '../../environments/environment';
-import { NudeService } from '../../services/nude.service';
+import { NudeService } from '../core/services/nude.service';
+import { Products } from '../core/models/product';
 
 @Component({
   selector: 'app-home',
@@ -11,7 +12,7 @@ import { NudeService } from '../../services/nude.service';
 })
 
 export class HomeComponent {
-  public forecasts: WeatherForecast[] = [];   
+  public products: Products[] = [];   
 
   public total = 0;
   private value: any;
@@ -27,54 +28,38 @@ export class HomeComponent {
   itemname: string = '';
   price: number = 3000;
 
-  //constructor( public service: NudeService, @Inject('BASE_URL') baseUrl: string) {
-  //constructor( @Inject('BASE_URL') baseUrl: string) {
   constructor(public service: NudeService, private http: HttpClient,  @Inject('BASE_URL') baseUrl: string) {
-    //http.get<WeatherForecast[]>(baseUrl + 'weatherforecast').subscribe(result => {
-    //  console.log(baseUrl);
-    //  this.forecasts = result;
-    //  this.findsum(this.forecasts);
-    //}, error => console.error(error));
     this.refreshList();
+    //console.log(baseUrl);
   }
 
   save(): void {
-    
-    var product: WeatherForecast = <any>{};
+    var product: Products = <any>{};
     product.categoryname = this.selectedValue;
     product.itemname = this.itemname;
     product.price = this.price;
 
-    const headers = { 'content-type': 'application/json' }
-    const body = JSON.stringify(product);
-    console.log(body);
-    this.http.post<WeatherForecast[]>(environment.API_BASE_URL, body, { 'headers': headers }).subscribe(result => {
-      this.forecasts = result;
-      this.findsum(this.forecasts);
-    }, error => console.error(error));
+    this.service.AddData(product).subscribe(result => {
+      this.products = result;
+      this.findsum(this.products);
+    }, error => console.error(error));;
 
   }
 
 
   deleteData(val: number) {
-    console.log(val);
-
-    const headers = { 'content-type': 'application/json' }
-
-    this.http.post<WeatherForecast[]>(environment.API_BASE_URL + '/delete/' + val, null, { 'headers': headers } ).subscribe(result => {
-      this.forecasts = result;
-      this.findsum(this.forecasts);
-    }, error => console.error(error));
+    this.service.DeleteData(val).subscribe(result => {
+      this.products = result;
+      this.findsum(this.products);
+    }, error => console.error(error));;
   }
 
 
   refreshList(): void {
-    this.http.get<WeatherForecast[]>(environment.API_BASE_URL ).subscribe(result => {
-
-      console.log('refresh list');
-      this.forecasts = result;
-      this.findsum(this.forecasts);
-    }, error => console.error(error));
+    this.service.GetAllData().subscribe(result => {
+      this.products = result;
+      this.findsum(this.products);
+    }, error => console.error(error));;
   }
 
 
@@ -99,17 +84,11 @@ export class HomeComponent {
     return this.total11;
   }
 
-  onCountrySelected(event: any) {
+  onCategorySelected(event: any) {
     this.selectedId = event.target.value;
     console.log(event.target.value); 
   }
 
 }
 
-interface WeatherForecast {
-  id: number;
-  categoryname: string;
-  itemname: string;
-  price: number;
-}
 

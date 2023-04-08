@@ -25,12 +25,16 @@
 
   <ItemGroup>
     <None Remove="ClientApp\src\app\core\models\product.ts" />
-    <None Remove="ClientApp\src\services\nude.service.ts" />
+    <None Remove="ClientApp\src\app\core\services\nude.service.ts" />
   </ItemGroup>
 
   <ItemGroup>
     <TypeScriptCompile Include="ClientApp\src\app\core\models\product.ts" />
-    <TypeScriptCompile Include="ClientApp\src\services\nude.service.ts" />
+    <TypeScriptCompile Include="ClientApp\src\app\core\services\nude.service.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ClientApp\src\assets\images\" />
   </ItemGroup>
 
     <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
