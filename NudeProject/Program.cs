@@ -1,6 +1,7 @@
 using NudeProject.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using NudeProject.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,7 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 var connectionString = builder.Configuration.GetConnectionString("LocalDB");
 builder.Services.AddDbContext<NudeDBContext>(x => x.UseSqlServer(connectionString));
-
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
@@ -28,6 +29,7 @@ app.UseRouting();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller}/{action=Index}/{id?}");
+
 
 app.MapFallbackToFile("index.html"); ;
 

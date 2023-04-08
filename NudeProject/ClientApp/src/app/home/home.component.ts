@@ -79,7 +79,7 @@ export class HomeComponent {
 
 
   findsum(data: any) {
-    debugger
+    //debugger
     this.value = data
     console.log(this.value);
     for (let j = 0; j < data.length; j++) {
