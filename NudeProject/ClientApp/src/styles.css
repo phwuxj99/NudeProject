@@ -14,3 +14,11 @@ code {
   background-color: #1b6ec2;
   border-color: #1861ac;
 }
+table td {
+  width: 20em;
+  border: 1px solid black;
+}
+/*
+  table td:nth-child(3) {
+    text-align: end;
+  }*/

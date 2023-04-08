@@ -14,13 +14,13 @@
         <table width="100%">
           <tr>
             <td>{{ product[0] }}</td>
-            <td>{{ locationsSum(product[1]) }}</td><td></td>
+            <td colspan="2">&nbsp; &nbsp; &nbsp; ${{ locationsSum(product[1]) }}</td>
           </tr>
           <tr *ngFor="let t of product[1]">
             <td width="30"></td>
             <td width="150">{{t.itemName}}</td>
             <td width="150">
-              {{t.price}} &nbsp; &nbsp; &nbsp;
+              ${{t.price}} &nbsp; 
               <img src="/assets/images/delete.png" width="20" height="25" alt="Delete" (click)="deleteData(t.id)" />
             </td>
           </tr>
@@ -29,17 +29,15 @@
       </td>
     </tr>
     <tr>
-      <td><b>Total:</b> </td>
-      <td><b>{{total}}</b> </td>
-      <td></td>
-      <td></td>
+      <td colspan="2"><b>Total:</b> </td>
+      <td colspan="2"><b>${{total}}</b> </td>
     </tr>
     <tr>
       <td>
         <input type="text" placeholder="Item Name" name="itemname" id="itemname" required="required" [(ngModel)]="itemname">
       </td>
       <td>
-        <input type="number" name="price" id="price" required="required" value="3000" step="1" [(ngModel)]="price">
+        $<input type="number" name="price" id="price" required="required" value="3000" step="1" [(ngModel)]="price">
       </td>
       <td>
         <select [(ngModel)]="selectedValue">
@@ -47,7 +45,7 @@
         </select>
       </td>
       <td>
-        <button type="button" (click)="save()">save</button>
+        <button type="button" (click)="save()">Add</button>
       </td>
     </tr>
   </tbody>
