@@ -9,6 +9,6 @@ Single Page Application (SPA)
   
   note: 
   
-    I. may need to install "ngx-pipes": npm install ngx-pipes --save;
+    I. May need to install "ngx-pipes": npm install ngx-pipes --save;
     
-    II. please restore all NuGet packages for the project
+    II. Please restore all NuGet packages for the project
