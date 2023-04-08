@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  API_BASE_URL: 'https://localhost:44414/weatherforecast'
+  API_BASE_URL: 'https://localhost:44414/weatherforecast',
+  API_BASE_URL_DELETE: 'https://localhost:44414/nudesolutions/delete'
 };
 
 /*

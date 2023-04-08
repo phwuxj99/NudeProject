@@ -56,7 +56,7 @@ namespace Project1.Controllers
         [HttpPost]
         public IEnumerable<Product> Create(Product product)
         {
-            product = new Product { CategoryName = "Clothing", ItemName = "test", Price = 15 };
+            //product = new Product { CategoryName = "Clothing", ItemName = "test", Price = 15 };
 
             nudeDBContext.Products.Add(product);
             nudeDBContext.SaveChanges();
@@ -94,26 +94,25 @@ namespace Project1.Controllers
         //    return null;
         //}
 
-        [HttpDelete("{id:int}")]
-        public async Task<ActionResult<WeatherForecast>> DeleteEmployee(int id)
+
+
+        // POST: Students/Delete/5
+        [HttpPost]
+        [Route("Delete/{id?}")]
+        public IEnumerable<Product> DeleteConfirmed(int id)
         {
-            //try
-            //{
-            //    var employeeToDelete = await employeeRepository.GetEmployee(id);
+            try
+            {
+                Product productToDelete = new Product() { Id = id };
+                nudeDBContext.Entry(productToDelete).State = EntityState.Deleted;
+                nudeDBContext.SaveChanges();
+            }
+            catch (DbUpdateException ex)
+            {
+            }
 
-            //    if (employeeToDelete == null)
-            //    {
-            //        return NotFound($"Employee with Id = {id} not found");
-            //    }
-
-            //    return await employeeRepository.DeleteEmployee(id);
-            //}
-            //catch (Exception)
-            //{
-            //    return StatusCode(StatusCodes.Status500InternalServerError,
-            //        "Error deleting data");
-            //}
-            return null;
+            products = nudeDBContext.Products.ToList();
+            return products;
         }
     }
 }
