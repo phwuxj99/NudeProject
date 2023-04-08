@@ -1,6 +1,13 @@
+using NudeProject.Models;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+var connectionString = builder.Configuration.GetConnectionString("LocalDB");
+builder.Services.AddDbContext<NudeDBContext>(x => x.UseSqlServer(connectionString));
 
 builder.Services.AddControllersWithViews();
 
