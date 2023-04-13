@@ -43,7 +43,7 @@ namespace NudeProject.Controllers
         }
 
 
-        [HttpPost]
+        [HttpDelete]
         [Route("Delete/{id?}")]
         public IEnumerable<Product> DeleteConfirmed(int id)
         {

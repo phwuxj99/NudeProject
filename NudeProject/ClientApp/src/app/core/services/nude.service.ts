@@ -29,7 +29,7 @@ export class NudeService {
 
   DeleteData(key: number) {
     const headers = { 'content-type': 'application/json' }
-   return this.http.post<Products[]>(environment.API_BASE_URL + '/delete/' + key, null, { 'headers': headers });
+    return this.http.delete<Products[]>(environment.API_BASE_URL + '/delete/' + key);
   }
 }
 
